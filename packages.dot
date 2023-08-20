@@ -1,0 +1,51 @@
+digraph "packages" {
+rankdir=BT
+charset="utf-8"
+"external_brain" [color="black", label=<external_brain>, shape="box", style="solid"];
+"external_brain.add_empty_text" [color="black", label=<external_brain.add_empty_text>, shape="box", style="solid"];
+"external_brain.application_state" [color="black", label=<external_brain.application_state>, shape="box", style="solid"];
+"external_brain.difference_tf_with_tsot_internal" [color="black", label=<external_brain.difference_tf_with_tsot_internal>, shape="box", style="solid"];
+"external_brain.go_back_internal" [color="black", label=<external_brain.go_back_internal>, shape="box", style="solid"];
+"external_brain.go_to_internal" [color="black", label=<external_brain.go_to_internal>, shape="box", style="solid"];
+"external_brain.go_up_back_internal" [color="black", label=<external_brain.go_up_back_internal>, shape="box", style="solid"];
+"external_brain.go_up_internal" [color="black", label=<external_brain.go_up_internal>, shape="box", style="solid"];
+"external_brain.key_is_not_convertible_to_a_set_exception" [color="black", label=<external_brain.key_is_not_convertible_to_a_set_exception>, shape="box", style="solid"];
+"external_brain.print_output" [color="black", label=<external_brain.print_output>, shape="box", style="solid"];
+"external_brain.return_tf_as_a_frozen_set" [color="black", label=<external_brain.return_tf_as_a_frozen_set>, shape="box", style="solid"];
+"external_brain.return_tf_as_a_set" [color="black", label=<external_brain.return_tf_as_a_set>, shape="box", style="solid"];
+"external_brain.set_value_internal" [color="black", label=<external_brain.set_value_internal>, shape="box", style="solid"];
+"external_brain.tags_not_in_subset" [color="black", label=<external_brain.tags_not_in_subset>, shape="box", style="solid"];
+"external_brain.tags_not_in_tsot_exception" [color="black", label=<external_brain.tags_not_in_tsot_exception>, shape="box", style="solid"];
+"external_brain.tcp" [color="black", label=<external_brain.tcp>, shape="box", style="solid"];
+"external_brain.tdon" [color="black", label=<external_brain.tdon>, shape="box", style="solid"];
+"external_brain.tsot" [color="black", label=<external_brain.tsot>, shape="box", style="solid"];
+"external_brain.union_tf_with_tsot_internal" [color="black", label=<external_brain.union_tf_with_tsot_internal>, shape="box", style="solid"];
+"external_brain" -> "external_brain.add_empty_text" [arrowhead="open", arrowtail="none"];
+"external_brain" -> "external_brain.application_state" [arrowhead="open", arrowtail="none"];
+"external_brain" -> "external_brain.difference_tf_with_tsot_internal" [arrowhead="open", arrowtail="none"];
+"external_brain" -> "external_brain.go_back_internal" [arrowhead="open", arrowtail="none"];
+"external_brain" -> "external_brain.go_to_internal" [arrowhead="open", arrowtail="none"];
+"external_brain" -> "external_brain.go_up_back_internal" [arrowhead="open", arrowtail="none"];
+"external_brain" -> "external_brain.go_up_internal" [arrowhead="open", arrowtail="none"];
+"external_brain" -> "external_brain.print_output" [arrowhead="open", arrowtail="none"];
+"external_brain" -> "external_brain.set_value_internal" [arrowhead="open", arrowtail="none"];
+"external_brain" -> "external_brain.tags_not_in_tsot_exception" [arrowhead="open", arrowtail="none"];
+"external_brain" -> "external_brain.union_tf_with_tsot_internal" [arrowhead="open", arrowtail="none"];
+"external_brain.application_state" -> "external_brain.tcp" [arrowhead="open", arrowtail="none"];
+"external_brain.application_state" -> "external_brain.tdon" [arrowhead="open", arrowtail="none"];
+"external_brain.application_state" -> "external_brain.tsot" [arrowhead="open", arrowtail="none"];
+"external_brain.difference_tf_with_tsot_internal" -> "external_brain.return_tf_as_a_set" [arrowhead="open", arrowtail="none"];
+"external_brain.go_back_internal" -> "external_brain.return_tf_as_a_frozen_set" [arrowhead="open", arrowtail="none"];
+"external_brain.go_back_internal" -> "external_brain.tags_not_in_subset" [arrowhead="open", arrowtail="none"];
+"external_brain.go_to_internal" -> "external_brain.return_tf_as_a_frozen_set" [arrowhead="open", arrowtail="none"];
+"external_brain.go_to_internal" -> "external_brain.tags_not_in_subset" [arrowhead="open", arrowtail="none"];
+"external_brain.go_up_back_internal" -> "external_brain.go_back_internal" [arrowhead="open", arrowtail="none"];
+"external_brain.go_up_back_internal" -> "external_brain.go_up_internal" [arrowhead="open", arrowtail="none"];
+"external_brain.go_up_internal" -> "external_brain.return_tf_as_a_frozen_set" [arrowhead="open", arrowtail="none"];
+"external_brain.go_up_internal" -> "external_brain.tags_not_in_subset" [arrowhead="open", arrowtail="none"];
+"external_brain.return_tf_as_a_frozen_set" -> "external_brain.key_is_not_convertible_to_a_set_exception" [arrowhead="open", arrowtail="none"];
+"external_brain.return_tf_as_a_set" -> "external_brain.key_is_not_convertible_to_a_set_exception" [arrowhead="open", arrowtail="none"];
+"external_brain.tags_not_in_subset" -> "external_brain.tags_not_in_tsot_exception" [arrowhead="open", arrowtail="none"];
+"external_brain.tdon" -> "external_brain.tcp" [arrowhead="open", arrowtail="none"];
+"external_brain.union_tf_with_tsot_internal" -> "external_brain.return_tf_as_a_set" [arrowhead="open", arrowtail="none"];
+}
