@@ -1,11 +1,9 @@
 # %%
 
-# from external_brain import ExternalBrain
+import external_brain as eb
 import pickle
 
 # # %%
-
-# eb = ExternalBrain()
 
 # eb.union_tf_with_tsot({'a'})
 
@@ -13,7 +11,7 @@ import pickle
 
 # # pickle the eb object's _ApplicationState
 # with open("data.pkl", "wb") as f:
-#     pickle.dump(eb, f)
+#     pickle.dump(eb._application_state, f)
 
 # %%
 
@@ -25,5 +23,13 @@ with open("data.pkl", "rb") as f:
 
 
 # %%
-my_obj.application_state.tsot
+my_obj.tsot
 
+
+# %%
+eb._application_state = my_obj
+# %%
+eb.union_tf_with_tsot('b')
+# %%
+eb._application_state.tsot
+# %%
