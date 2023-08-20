@@ -2,9 +2,7 @@
 The set of tags.
 """
 
-class _TSOT(set):
+class TSOT(set):
     """
     The set of tags.
     """
-
-tsot = _TSOT()

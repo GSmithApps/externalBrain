@@ -1,16 +1,32 @@
 """
+A dataclass for holding the state of the application.
 
+it needs fields for:
+
+- tsot: TSOT
+- tdon: TDON
+- tcp: TCP
 """
 
-from external_brain.tcp import tcp as _tcp
-from external_brain.tdon import tdon as _tdon
-from external_brain.tsot import tsot as _tsot
+from dataclasses import dataclass
 
+from external_brain.tsot import TSOT as _TSOT
+from external_brain.tcp import TCP as _TCP
+from external_brain.tdon import TDON as _TDON
+
+
+@dataclass
 class ApplicationState:
     """
-    Holds the state of the application.
+    A dataclass for holding the state of the application.
+
+    it needs fields for:
+
+    - tsot: TSOT
+    - tcp: TCP
+    - tdon: TDON
     """
 
-    tsot = _tsot
-    tdon = _tdon
-    tcp = _tcp
+    tsot: _TSOT
+    tcp: _TCP
+    tdon: _TDON

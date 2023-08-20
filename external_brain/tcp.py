@@ -2,7 +2,7 @@
 The Current Position.
 """
 
-class _TCP(frozenset):
+class TCP(frozenset):
     """
     The current position.
 
@@ -10,4 +10,3 @@ class _TCP(frozenset):
     position in the dictionary of nodes.
     """
 
-tcp = _TCP()
