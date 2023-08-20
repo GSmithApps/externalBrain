@@ -36,104 +36,165 @@ from external_brain.key_is_not_convertible_to_a_set_exception import (
 from external_brain.tsot import TSOT as _TSOT
 from external_brain.tcp import TCP as _TCP
 from external_brain.tdon import TDON as _TDON
+import pickle
 
 
-_tsot = _TSOT()
-_tcp = _TCP()
-_tdon = _TDON()
-_tdon[_tcp] = ""
-_application_state = _ApplicationState(_tsot, _tcp, _tdon)
-
-def difference_tf_with_tsot(tags):
-    """
-    Take the difference of _tsot with tags and set it back to _tsot.
-    """
-    try:
-        _difference_tf_with_tsot_internal(tags, _application_state)
-    except _KeyIsNotConvertibleToASetException as e:
-        print(e)
-    _print_output(_application_state)
+class ExternalBrain:
 
 
-def union_tf_with_tsot(tags):
-    """
-    Take the union of _tsot with tags and set it back to _tsot.
-    """
-    try:
-        _union_tf_with_tsot_internal(tags, _application_state)
-    except _KeyIsNotConvertibleToASetException as e:
-        print(e)
-    _print_output(_application_state)
+    def __init__(self, delete_data_and_start_blank="no"):
+        """
+        Initialize the external brain.
+
+        If ``delete_data_and_start_blank == "delete_data_and_start_blank"``, then delete the
+        data and reset the external brain to a blank state. Otherwise,
+        load the data from the file ``data.pkl``.
+        """
+
+        if delete_data_and_start_blank == "delete_data_and_start_blank":
+            
+            _tsot = _TSOT()
+            _tcp = _TCP()
+            _tdon = _TDON()
+            _tdon[_tcp] = ""
+            self._application_state = _ApplicationState(_tsot, _tcp, _tdon)
+
+        else:
+
+            with open("data.pkl", "rb") as f:
+
+                self._application_state = pickle.load(f)
+
+    # @@@@@@@@@@@@@@@@@@@@@
+    # @@@ setting value @@@
+    # @@@@@@@@@@@@@@@@@@@@@
+
+    def set_value(self, value):
+        """
+        Set the node to value.
+        """
+        _set_value_internal(value, self._application_state)
+        _print_output(self._application_state)
+        return self
+
+    # @@@@@@@@@@@@@@@@@@@
+    # @@@ modify tsot @@@
+    # @@@@@@@@@@@@@@@@@@@
+
+    def difference_tf_with_tsot(self, tags):
+        """
+        Take the difference of _tsot with tags and set it back to _tsot.
+        """
+        try:
+            _difference_tf_with_tsot_internal(tags, self._application_state)
+        except _KeyIsNotConvertibleToASetException as e:
+            print(e)
+        _print_output(self._application_state)
+        return self
 
 
-def set_value(value):
-    """
-    Set the node to value.
-    """
-    _set_value_internal(value, _application_state)
-    _print_output(_application_state)
+    def union_tf_with_tsot(self, tags):
+        """
+        Take the union of _tsot with tags and set it back to _tsot.
+        """
+        try:
+            _union_tf_with_tsot_internal(tags, self._application_state)
+        except _KeyIsNotConvertibleToASetException as e:
+            print(e)
+        _print_output(self._application_state)
+        return self
+
+    # @@@@@@@@@@@@@@@@@@@
+    # @@@ movement @@@
+    # @@@@@@@@@@@@@@@@@@@
+
+    def go_to(self, tags):
+        """
+        Go to a set of tags.
+
+        Each tag in the set must
+        be in _tsot. If not, simply tell
+        the user, but do nothing else.
+        """
+
+        try:
+            _go_to_internal(tags, self._application_state)
+            _add_empty_text(self._application_state)
+        except _TagsNotInTSOTException as e:
+            print(e)
+        except _KeyIsNotConvertibleToASetException as e:
+            print(e)
+        _print_output(self._application_state)
+        return self
 
 
-def go_to(tags):
-    """
-    Go to a set of tags.
-
-    Each tag in the set must
-    be in _tsot. If not, simply tell
-    the user, but do nothing else.
-    """
-
-    try:
-        _go_to_internal(tags, _application_state)
-        _add_empty_text(_application_state)
-    except _TagsNotInTSOTException as e:
-        print(e)
-    except _KeyIsNotConvertibleToASetException as e:
-        print(e)
-    _print_output(_application_state)
+    def go_up(self, tags):
+        """
+        Add plus_tags to _tsot.
+        """
+        try:
+            _go_up_internal(tags, self._application_state)
+            _add_empty_text(self._application_state)
+        except _TagsNotInTSOTException as e:
+            print(e)
+        except _KeyIsNotConvertibleToASetException as e:
+            print(e)
+            
+        _print_output(self._application_state)
+        return self
 
 
-def go_up(tags):
-    """
-    Add plus_tags to _tsot.
-    """
-    try:
-        _go_up_internal(tags, _application_state)
-        _add_empty_text(_application_state)
-    except _TagsNotInTSOTException as e:
-        print(e)
-    except _KeyIsNotConvertibleToASetException as e:
-        print(e)
-        
-    _print_output(_application_state)
+    def go_back(self, tags):
+        """
+        Remove minus_tags from _tsot.
+
+        """
+        try:
+            _go_back_internal(tags, self._application_state)
+            _add_empty_text(self._application_state)
+        except _TagsNotInTSOTException as e:
+            print(e)
+        except _KeyIsNotConvertibleToASetException as e:
+            print(e)
+        _print_output(self._application_state)
+        return self
 
 
-def go_back(tags):
-    """
-    Remove minus_tags from _tsot.
+    def go_up_back(self, up_tags, back_tags):
+        """
+        Add plus_tags to _tsot and remove minus_tags from _tsot.
+        """
+        try:
+            _go_up_back_internal(up_tags, back_tags, self._application_state)
+            _add_empty_text(self._application_state)
+        except _TagsNotInTSOTException as e:
+            print(e)
+        except _KeyIsNotConvertibleToASetException as e:
+            print(e)
+        _print_output(self._application_state)
+        return self
 
-    """
-    try:
-        _go_back_internal(tags, _application_state)
-        _add_empty_text(_application_state)
-    except _TagsNotInTSOTException as e:
-        print(e)
-    except _KeyIsNotConvertibleToASetException as e:
-        print(e)
-    _print_output(_application_state)
+    # @@@@@@@@@@@@@@@@@@@
+    # @@@ inspection @@@
+    # @@@@@@@@@@@@@@@@@@@
 
+    def tsot(self):
+        """
+        Return the tsot.
+        """
+        print(self._application_state.tsot)
+        _print_output(self._application_state)
 
-def go_up_back(up_tags, back_tags):
-    """
-    Add plus_tags to _tsot and remove minus_tags from _tsot.
-    """
-    try:
-        _go_up_back_internal(up_tags, back_tags, _application_state)
-        _add_empty_text(_application_state)
-    except _TagsNotInTSOTException as e:
-        print(e)
-    except _KeyIsNotConvertibleToASetException as e:
-        print(e)
-    _print_output(_application_state)
+    def keys(self):
+        """
+        Return the keys of the tsot.
+        """
+        print(self._application_state.tdon.keys())
+        _print_output(self._application_state)
 
+    # @@@@@@@@@@@@@@@@@@@
+    # @@@ utilities @@@
+    # @@@@@@@@@@@@@@@@@@@
 
+    def __repr__(self):
+        return ""
