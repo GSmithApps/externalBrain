@@ -48,10 +48,12 @@ set. Like this:
 
 ```python
 {
-  {'cookies'}:'I like +{butterscotch} ones'
-  {'cookies', 'butterscotch'}: 'I like all cookies'
+  {'cookies'}:'I like ^^ butterscotch ^^ ones'
+  {'cookies', 'butterscotch'}: 'I like butterscotch cookies'
 }
 ```
+
+
 
 ## todo
 
