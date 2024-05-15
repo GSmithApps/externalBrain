@@ -134,3 +134,16 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
+
+# pyreverse
+
+# classes.dot file
+/classes.dot
+
+
+classes.dot
+packages.dot
+
+# localstash folder
+localstash/
+

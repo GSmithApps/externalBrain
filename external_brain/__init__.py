@@ -19,6 +19,9 @@ from external_brain.union_tf_with_tsot_internal import (
 from external_brain.set_value_internal import (
     set_value_internal as _set_value_internal,
 )
+from external_brain.append_value_internal import (
+    append_value_internal as _append_value_internal,
+)
 from external_brain.go_to_internal import go_to_internal as _go_to_internal
 from external_brain.go_up_internal import go_up_internal as _go_up_internal
 from external_brain.go_back_internal import go_back_internal as _go_back_internal
@@ -40,6 +43,37 @@ import pickle
 
 
 class ExternalBrain:
+    """
+    
+    
+    Methods
+    -------
+
+    - Setting Values
+
+      - ``set_value``
+      - ``append_value``
+
+    - Modifying the set of tags
+
+      - ``remove_tags``
+      - ``add_tags``
+
+    - Movement
+
+      - ``go_to``
+      - ``go_up``
+      - ``go_back``
+      - ``go_up_back``
+
+    - Inspection
+
+      - ``tags``
+      - ``keys``
+      - ``nodes``
+      - ``nodes_with_one``
+      - ``nodes_with_all``
+    """
 
 
     def __init__(self, delete_data_and_start_blank="no"):
@@ -49,6 +83,7 @@ class ExternalBrain:
         If ``delete_data_and_start_blank == "delete_data_and_start_blank"``, then delete the
         data and reset the external brain to a blank state. Otherwise,
         load the data from the file ``data.pkl``.
+
         """
 
         if delete_data_and_start_blank == "delete_data_and_start_blank":
@@ -76,12 +111,20 @@ class ExternalBrain:
         _set_value_internal(value, self._application_state)
         _print_output(self._application_state)
         return self
+    
+    def append_value(self, value):
+        """
+        Append value to the node.
+        """
+        _append_value_internal(value, self._application_state)
+        _print_output(self._application_state)
+        return self
 
     # @@@@@@@@@@@@@@@@@@@
     # @@@ modify tsot @@@
     # @@@@@@@@@@@@@@@@@@@
 
-    def difference_tf_with_tsot(self, tags):
+    def remove_tags(self, tags):
         """
         Take the difference of _tsot with tags and set it back to _tsot.
         """
@@ -93,7 +136,7 @@ class ExternalBrain:
         return self
 
 
-    def union_tf_with_tsot(self, tags):
+    def add_tags(self, tags):
         """
         Take the union of _tsot with tags and set it back to _tsot.
         """
@@ -178,23 +221,48 @@ class ExternalBrain:
     # @@@ inspection @@@
     # @@@@@@@@@@@@@@@@@@@
 
-    def tsot(self):
+    def tags(self):
         """
-        Return the tsot.
+        Return tsot.
         """
         print(self._application_state.tsot)
         _print_output(self._application_state)
 
     def keys(self):
         """
-        Return the keys of the tsot.
+        Return the keys of tsot.
         """
         print(self._application_state.tdon.keys())
         _print_output(self._application_state)
+
+    def nodes(self):
+        """
+        Return tdon.
+        """
+        print(self._application_state.tdon)
+        _print_output(self._application_state)
+
+    def nodes_with_one(self, tags):
+        """
+        Return tdon with at least one of tags.
+        """
+        raise NotImplementedError
+    
+    def nodes_with_all(self, tags):
+        """
+        Return tdon with all of tags.
+        """
+        raise NotImplementedError
 
     # @@@@@@@@@@@@@@@@@@@
     # @@@ utilities @@@
     # @@@@@@@@@@@@@@@@@@@
 
     def __repr__(self):
-        return ""
+        return (
+            "\n"
+            f"{self._application_state.tcp}\n"
+            f"{'=' * len(str(self._application_state.tcp))}\n"
+            f"{self._application_state.tdon[self._application_state.tcp]}\n"
+            "\n"
+        )
