@@ -1,14 +1,9 @@
 """
-We want to be able to do the following:
-
-# Set a node
-
-# Add or remove sets of tags from the current set of tags
-
-# Move
-
+Contains the class ``ExternalBrain``.
 """
 
+import pickle
+from pprint import pprint
 from external_brain.application_state import ApplicationState as _ApplicationState
 from external_brain.difference_tf_with_tsot_internal import (
     difference_tf_with_tsot_internal as _difference_tf_with_tsot_internal,
@@ -39,7 +34,6 @@ from external_brain.key_is_not_convertible_to_a_set_exception import (
 from external_brain.tsot import TSOT as _TSOT
 from external_brain.tcp import TCP as _TCP
 from external_brain.tdon import TDON as _TDON
-import pickle
 
 
 class ExternalBrain:
@@ -73,6 +67,12 @@ class ExternalBrain:
       - ``nodes``
       - ``nodes_with_one``
       - ``nodes_with_all``
+
+    Usage
+    -----
+
+    >>> eb = ExternalBrain()
+    >>> eb.set_value("apple")
     """
 
 
@@ -225,21 +225,21 @@ class ExternalBrain:
         """
         Return tsot.
         """
-        print(self._application_state.tsot)
+        pprint(self._application_state.tsot)
         _print_output(self._application_state)
 
     def keys(self):
         """
         Return the keys of tsot.
         """
-        print(self._application_state.tdon.keys())
+        pprint(self._application_state.tdon.keys())
         _print_output(self._application_state)
 
     def nodes(self):
         """
         Return tdon.
         """
-        print(self._application_state.tdon)
+        pprint(self._application_state.tdon)
         _print_output(self._application_state)
 
     def nodes_with_one(self, tags):
